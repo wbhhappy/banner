@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+				.banner{width: 500px;height: 210px;margin: 50px auto;}
+			.imgs{width: 2000px;}
+			.imgs img{display: block;width: 500px;height: 210px;display: none;}
+			.imgs .active{display: block;}
+			.banner ul {
+			position: relative;
+			top: -40px;
+			left: 340px;
+			z-index:1;
+		}
+		.banner ul li {
+			width: 10px;
+			height: 10px;
+			background: #fff;
+			list-style: none;
+			margin-left: 10px;
+			float: left;
+			cursor: pointer;
+		}
+
+		.banner ul .active {
+			background: #f00;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="banner">
+			<div class="imgs">
+				<img class="active" src="img/m1.jpg" alt="" />
+				<img src="img/m3.jpg" alt="" />
+				<img src="img/m4.jpg" alt="" />
+				<img src="img/m6.jpg" alt="" />
+			</div>
+			<ul>
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
+		
+		<script>
+			
+			var oBanner = document.getElementsByClassName("banner")[0];
+			var lis = document.getElementsByTagName("li");
+			var oImg = document.getElementsByTagName("img");
+			var time;//定义全局定时器
+			
+			
+				
+			
+			var current = 0; //记录图片
+			for (var i=0; i<lis.length; i++) {
+				
+				lis[i].index = i;
+				lis[i].onclick = function(){
+					current = this.index;
+					for (var j=0; j<lis.length; j++) {
+						lis[j].className = "";
+					}
+						this.className = "active";
+					for (var k=0; k<oImg.length; k++) {
+						oImg[k].className = "";
+					}
+						oImg[this.index].className = "active";
+				}
+			}
+			
+			function fn(current){
+				for (var i=0; i<lis.length; i++) {
+					lis[i].className = "";
+				}
+					lis[current].className = "active";
+					
+				for (var j=0; j<oImg.length; j++) {
+					oImg[j].className = "";
+				}
+					oImg[current].className = "active";
+			}
+			
+			
+			
+			function fnStart(){
+				 time = setInterval(function(){
+					if (current > oImg.length - 1) {
+						current = 0;
+					}
+						fn(current);
+						current ++;
+				},2000)
+			}
+			fnStart();
+			
+			oBanner.onmouseover = function(){
+				clearInterval(time);
+			}
+			
+			oBanner.onmouseout = function(){
+				fnStart();
+			}
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

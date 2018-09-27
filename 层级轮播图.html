@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 650px;
+            height: 250px;
+            margin: 100px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrap img {
+            display: block;
+            width: 650px;
+            height: 250px;
+        }
+
+        .wrap ul {
+            height: 250px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .wrap ol {
+            height: 30px;
+            z-index: 2;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .wrap > ul > li {
+            position: absolute;
+            top: 0;
+            left: 650px;
+        }
+
+        .wrap > ol > li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            border: 1px solid white;
+            margin-right: 5px;
+            background: Gray;
+        }
+
+        .wrap > ol > li:hover {
+            cursor: pointer;
+        }
+
+        .wrap li.active {
+            padding: 2px;
+            color: orange;
+            margin-top: -4px;
+            border: 1px solid orange;
+        }
+    </style>
+	</head>
+	<body>
+		<div class="wrap">
+    <ul>
+        <li style="z-index:0;left:0;"><img src="img/1.jpg" alt=""/></li>
+        <li><img src="img/2.jpg" alt=""/></li>
+        <li><img src="img/3.jpg" alt=""/></li>
+        <li><img src="img/4.jpg" alt=""/></li>
+        <li><img src="img/5.jpg" alt=""/></li>
+    </ul>
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+</div>
+	</body>
+</html>
+<script src="jquery-1.11.1.js"></script>
+<script>
+	/*
+	var timer = null;//定义一个定时器
+	var index = 0;//记录下标
+	
+	timer = setInterval(autoplay,2000);
+	function autoplay(){
+		index++;
+		if(index == $("ol li").size()){
+			index = 0;
+		}
+		$("ol li").eq(index).addClass("active").siblings().removeClass("active");
+		$("ul li").eq(index).animate({left:0}, 1500, function(){
+			$(this).css("z-index",0).siblings().css({"z-index":1, "left":650})
+		})
+	}
+	
+	$("ol li").mouseenter(function(){
+		clearInterval(timer);
+		index = $(this).index()-1;
+		autoplay();
+	}).mouseleave(function(){
+		timer = setInterval(autoplay(),2000);
+	})
+	*/
+	
+	var timer = null;
+	var index = 0; 
+	
+	timer = setInterval( autoPlay, 2000);
+	function autoPlay(){
+		index++;
+		//判断图片是否轮播完  轮播完了 就从头开始
+		if(index == $("ol li").size()){
+			index = 0;
+		}
+		//改变ol的子级li 的 样式
+		$("ol li ").eq(index).addClass("active").siblings().removeClass("active");
+		
+		$("ul li").eq(index).animate({left:0},1500,function(){
+			$(this).css("z-index",0).siblings().css({"z-index":1 , "left":650})
+		})
+	}
+	
+	$("ol li").mouseenter(function(){
+		clearInterval(timer);
+		index = $(this).index() - 1;
+		autoPlay();
+	}).mouseleave(function(){
+		timer = setInterval( autoPlay, 2000);
+	})
+</script>
